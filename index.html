@@ -1,0 +1,1296 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <title>Планер продуктивности · crock0dole</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Иконка для рабочего стола iOS (положи рядом crock0dole-icon.png, 512x512) -->
+  <link rel="apple-touch-icon" href="crock0dole-icon.png" />
+  <style>
+    :root {
+      --bg: #050509;
+      --bg-elevated: #101018;
+      --bg-elevated-soft: #141424;
+      --border: #26263f;
+      --accent: #ec3c84;
+      --accent-soft: rgba(236, 60, 132, 0.18);
+      --accent-strong: rgba(236, 60, 132, 0.85);
+      --text: #f4f4f7;
+      --muted: #a0a0b8;
+      --danger: #ff5e7a;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #22223a 0, #050509 55%);
+      color: var(--text);
+    }
+
+    /* Брендинг crock0dole */
+    .branding {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px 16px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .branding-logo-mark {
+      width: 34px;
+      height: 34px;
+      border-radius: 14px;
+      background: radial-gradient(circle at top left, #ff6aa4, #41102e 55%, #050509 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      text-transform: lowercase;
+      box-shadow: 0 0 16px rgba(236, 60, 132, 0.65);
+    }
+
+    .branding-logo-mark span {
+      transform: translateY(0.5px);
+    }
+
+    .branding-text {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .branding-title {
+      font-size: 17px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: lowercase;
+    }
+
+    .branding-subtitle {
+      font-size: 10px;
+      color: var(--muted);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 8px 16px 32px;
+    }
+
+    h1 {
+      font-size: 26px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-align: center;
+      margin: 6px 0 8px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .version {
+      text-align: center;
+      font-size: 10px;
+      color: var(--muted);
+      margin-bottom: 16px;
+      opacity: 0.7;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 2fr);
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .card {
+      background: linear-gradient(145deg, #101018, #16162a);
+      border-radius: 20px;
+      padding: 18px 20px 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.7);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: radial-gradient(
+        circle at top left,
+        rgba(236, 60, 132, 0.13),
+        transparent 55%
+      );
+      opacity: 0.8;
+      pointer-events: none;
+    }
+
+    .card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .card h2 {
+      font-size: 18px;
+      margin: 0 0 10px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .card small {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    input[type="text"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      background: var(--bg-elevated-soft);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      padding: 8px 10px;
+      color: var(--text);
+      font-size: 13px;
+      outline: none;
+      transition: border 0.15s ease, box-shadow 0.15s ease,
+        background 0.15s ease;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 70px;
+    }
+
+    input:focus,
+    textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 1px rgba(236, 60, 132, 0.4);
+      background: #18182a;
+    }
+
+    .inline-inputs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 10px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+
+    .inline-inputs > div {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      color: var(--muted);
+      margin-top: 6px;
+    }
+
+    .badge-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 99px;
+      background: var(--accent);
+      box-shadow: 0 0 10px var(--accent-soft);
+    }
+
+    .progress-bar {
+      position: relative;
+      height: 9px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.04);
+      overflow: hidden;
+      margin-top: 8px;
+    }
+
+    .progress-fill {
+      position: absolute;
+      inset: 0;
+      width: 0%;
+      background: linear-gradient(
+        90deg,
+        var(--accent-strong),
+        rgba(255, 140, 180, 0.9)
+      );
+      box-shadow: 0 0 16px rgba(236, 60, 132, 0.55);
+      transition: width 0.25s ease-out;
+    }
+
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 4px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .kpi-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
+
+    .kpi {
+      flex: 1;
+      min-width: 120px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .kpi-label {
+      font-size: 11px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .kpi-value {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    #pomodoroDisplay {
+      font-size: 28px;
+      letter-spacing: 0.12em;
+      text-align: center;
+      margin-bottom: 10px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .pomodoro-controls {
+      display: flex;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    button {
+      background: rgba(10, 10, 20, 0.9);
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 7px 14px;
+      font-size: 12px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.15s ease, border-color 0.15s ease,
+        transform 0.08s ease;
+    }
+
+    button.primary {
+      background: var(--accent-strong);
+      border-color: var(--accent);
+      box-shadow: 0 0 14px var(--accent-soft);
+    }
+
+    button:hover {
+      transform: translateY(-1px);
+      border-color: var(--accent);
+    }
+
+    button:active {
+      transform: translateY(0);
+      opacity: 0.9;
+    }
+
+    .pomodoro-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      font-size: 11px;
+      color: var(--muted);
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .pomodoro-meta input[type="number"] {
+      width: 70px;
+      padding-inline: 6px;
+    }
+
+    .pomodoro-summary {
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+
+    .pomodoro-summary b {
+      font-size: 13px;
+      color: var(--text);
+    }
+
+    .pomodoro-chart {
+      display: flex;
+      align-items: flex-end;
+      gap: 3px;
+      height: 70px;
+      margin-top: 4px;
+    }
+
+    .pomodoro-bar {
+      flex: 1;
+      min-width: 0;
+      border-radius: 999px 999px 0 0;
+      background: rgba(255, 255, 255, 0.03);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pomodoro-bar-fill {
+      position: absolute;
+      inset-inline: 0;
+      bottom: 0;
+      height: 0;
+      background: var(--accent-soft);
+      box-shadow: 0 0 12px rgba(236, 60, 132, 0.5);
+      transition: height 0.2s ease-out;
+    }
+
+    .pomodoro-bar-label {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translate(-50%, 115%);
+      font-size: 8px;
+      color: var(--muted);
+    }
+
+    .card-wide {
+      margin-top: 8px;
+    }
+
+    .scroll-x {
+      overflow-x: auto;
+      margin-top: 8px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .scroll-x::-webkit-scrollbar {
+      height: 4px;
+    }
+    .scroll-x::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.12);
+      border-radius: 999px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 11px;
+      min-width: 720px;
+    }
+
+    thead {
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    th,
+    td {
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      padding: 4px 4px;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    th:first-child,
+    td:first-child {
+      position: sticky;
+      left: 0;
+      background: #101018;
+      z-index: 2;
+    }
+
+    th.habit-col {
+      min-width: 140px;
+      text-align: left;
+    }
+
+    th.day-col {
+      font-size: 10px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    td.day-cell {
+      cursor: pointer;
+      min-width: 18px;
+      height: 22px;
+      background: rgba(255, 255, 255, 0.01);
+      transition: background 0.12s ease, box-shadow 0.12s ease,
+        transform 0.08s ease;
+    }
+
+    td.day-cell:hover {
+      background: rgba(255, 255, 255, 0.04);
+      transform: translateY(-1px);
+    }
+
+    td.day-cell.done {
+      background: var(--accent-soft);
+      box-shadow: inset 0 0 0 1px var(--accent), 0 0 12px rgba(236, 60, 132, 0.6);
+    }
+
+    td.pct-cell {
+      font-weight: 600;
+      font-size: 11px;
+      color: var(--muted);
+      min-width: 44px;
+    }
+
+    .habit-name-input {
+      width: 100%;
+      border-radius: 8px;
+      border: 0;
+      padding: 3px 6px;
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.02);
+      color: var(--text);
+      outline: none;
+    }
+
+    .habit-name-input:focus {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .helper-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11px;
+      color: var(--muted);
+      margin-top: 6px;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .helper-row-right {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .badge-reset {
+      color: var(--danger);
+      cursor: pointer;
+      text-decoration: underline dotted;
+    }
+
+    .weekly-list {
+      list-style: none;
+      padding: 0;
+      margin: 8px 0 0;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .weekly-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.04);
+      padding: 3px 0;
+    }
+
+    .weekly-list span.value {
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .footer {
+      margin-top: 10px;
+      text-align: center;
+      font-size: 10px;
+      color: var(--muted);
+      opacity: 0.7;
+    }
+
+    @media (max-width: 900px) {
+      .branding {
+        padding-inline: 12px;
+      }
+      .container {
+        padding-inline: 12px;
+      }
+      .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .branding {
+        padding: 8px 10px 0;
+      }
+      .branding-logo-mark {
+        width: 30px;
+        height: 30px;
+        border-radius: 12px;
+        font-size: 13px;
+      }
+      .branding-title {
+        font-size: 15px;
+      }
+      .branding-subtitle {
+        font-size: 9px;
+        letter-spacing: 0.16em;
+      }
+
+      .container {
+        padding: 8px 10px 20px;
+      }
+
+      h1 {
+        font-size: 22px;
+        margin: 6px 0 10px;
+      }
+
+      .subtitle {
+        font-size: 12px;
+        margin-bottom: 12px;
+      }
+
+      .card {
+        padding: 14px 12px 14px;
+        border-radius: 18px;
+      }
+
+      .card h2 {
+        font-size: 16px;
+      }
+
+      .card small {
+        font-size: 11px;
+      }
+
+      #pomodoroDisplay {
+        font-size: 24px;
+      }
+
+      .pomodoro-meta {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .pomodoro-summary {
+        font-size: 11px;
+      }
+
+      .kpi {
+        padding: 6px 8px;
+      }
+
+      .kpi-value {
+        font-size: 14px;
+      }
+
+      table {
+        font-size: 11px;
+        min-width: 620px;
+      }
+
+      th,
+      td {
+        padding: 5px 3px;
+      }
+
+      td.day-cell {
+        height: 26px;
+        min-width: 22px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .branding {
+        padding-inline: 8px;
+      }
+      .container {
+        padding-inline: 6px;
+      }
+
+      .card {
+        border-radius: 16px;
+      }
+
+      table {
+        min-width: 580px;
+      }
+
+      td.day-cell {
+        height: 28px;
+        min-width: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Брендовая шапка crock0dole -->
+  <div class="branding">
+    <div class="branding-logo-mark">
+      <span>c0</span>
+    </div>
+    <div class="branding-text">
+      <div class="branding-title">crock0dole</div>
+      <div class="branding-subtitle">productivity lab</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Планер продуктивности</h1>
+    <div class="subtitle">
+      Трекинг привычек, целей и фокус-сессий для максимальной эффективности
+    </div>
+    <div class="version">crock0dole · Mobile planner v1.2</div>
+
+    <div class="grid-2">
+      <!-- Цель месяца -->
+      <div class="card">
+        <div class="card-inner">
+          <h2>Цель месяца</h2>
+          <small>Сформулируй одну главную цель и отслеживай прогресс по привычкам.</small>
+
+          <div class="inline-inputs">
+            <div>
+              <label for="monthLabel">Месяц</label>
+              <input id="monthLabel" type="text" placeholder="например: Март 2026" />
+            </div>
+            <div style="flex:0 0 90px">
+              <label for="daysInMonth">Дней в месяце</label>
+              <input
+                id="daysInMonth"
+                type="number"
+                min="28"
+                max="31"
+                step="1"
+              />
+            </div>
+          </div>
+
+          <label for="monthGoal">Главная цель</label>
+          <textarea
+            id="monthGoal"
+            placeholder="Стать сильнее/спокойнее/богаче версии себя. Опиши цель максимально конкретно."
+          ></textarea>
+
+          <span class="badge">
+            <span class="badge-dot"></span>
+            Клик по ячейке = привычка выполнена
+          </span>
+
+          <div class="progress-bar">
+            <div class="progress-fill" id="overallProgressFill"></div>
+          </div>
+          <div class="progress-meta">
+            <span>Общий прогресс: <b id="overallPercent">0%</b></span>
+            <span>Сегодня выполнено привычек: <b id="todayHabits">0</b></span>
+          </div>
+
+          <div class="kpi-row">
+            <div class="kpi">
+              <div class="kpi-label">Всего отметок за месяц</div>
+              <div class="kpi-value" id="kpiTotalChecks">0</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-label">Средняя заполненность дня</div>
+              <div class="kpi-value" id="kpiAvgDay">0%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Pomodoro -->
+      <div class="card">
+        <div class="card-inner">
+          <h2>Фокус-сессии (Pomodoro)</h2>
+          <small>Концентрированные отрезки работы. После окончания сессии она
+            автоматически добавится в статистику дня.</small>
+
+          <div id="pomodoroDisplay">25:00</div>
+
+          <div class="pomodoro-controls">
+            <button id="startPomodoro" class="primary">Старт</button>
+            <button id="pausePomodoro">Пауза</button>
+            <button id="resetPomodoro">Сброс</button>
+          </div>
+
+          <div class="pomodoro-meta">
+            <div>
+              <label for="pomodoroLength">Длительность сессии (мин)</label>
+              <input
+                id="pomodoroLength"
+                type="number"
+                min="5"
+                max="90"
+                step="5"
+                value="25"
+              />
+            </div>
+            <div>
+              Рекомендуется 3–6 сессий в день на ключевые задачи.
+            </div>
+          </div>
+
+          <div class="pomodoro-summary">
+            Сегодня фокус-сессий: <b id="todayPomos">0</b>
+          </div>
+
+          <div class="pomodoro-chart" id="pomodoroChart"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Трекер привычек -->
+    <div class="card card-wide">
+      <div class="card-inner">
+        <h2>Трекер ежедневных привычек</h2>
+        <small>До 10 привычек. Клик по дню = отметка. Последний столбец показывает %
+          выполнения привычки за месяц.</small>
+
+        <div class="scroll-x">
+          <table id="habitsTable">
+            <thead>
+              <tr>
+                <th class="habit-col">Привычка</th>
+                <!-- Дни 1–31 -->
+                <th class="day-col">1</th>
+                <th class="day-col">2</th>
+                <th class="day-col">3</th>
+                <th class="day-col">4</th>
+                <th class="day-col">5</th>
+                <th class="day-col">6</th>
+                <th class="day-col">7</th>
+                <th class="day-col">8</th>
+                <th class="day-col">9</th>
+                <th class="day-col">10</th>
+                <th class="day-col">11</th>
+                <th class="day-col">12</th>
+                <th class="day-col">13</th>
+                <th class="day-col">14</th>
+                <th class="day-col">15</th>
+                <th class="day-col">16</th>
+                <th class="day-col">17</th>
+                <th class="day-col">18</th>
+                <th class="day-col">19</th>
+                <th class="day-col">20</th>
+                <th class="day-col">21</th>
+                <th class="day-col">22</th>
+                <th class="day-col">23</th>
+                <th class="day-col">24</th>
+                <th class="day-col">25</th>
+                <th class="day-col">26</th>
+                <th class="day-col">27</th>
+                <th class="day-col">28</th>
+                <th class="day-col">29</th>
+                <th class="day-col">30</th>
+                <th class="day-col">31</th>
+                <th>%</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="helper-row">
+          <div>
+            Заполненность считается по активным привычкам (тем, у которых есть
+            название).
+          </div>
+          <div class="helper-row-right">
+            <span>Очистить всё:</span>
+            <span class="badge-reset" id="resetAll">сбросить отметки и привычки</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Еженедельный обзор -->
+    <div class="card card-wide">
+      <div class="card-inner">
+        <h2>Еженедельный обзор</h2>
+        <small>Средний процент закрытых привычек по каждой неделе месяца.</small>
+        <ul class="weekly-list" id="weeklyList"></ul>
+      </div>
+    </div>
+
+    <div class="footer">crock0dole · productivity lab</div>
+  </div>
+
+  <script>
+    (function () {
+      const STORAGE_KEY = "productivity_planner_v1";
+      const HABITS_COUNT = 10;
+      const DAYS_COUNT = 31;
+
+      function normalizeHabitData(input) {
+        const data = Array.from({ length: HABITS_COUNT }, () =>
+          Array(DAYS_COUNT).fill(0)
+        );
+        if (Array.isArray(input)) {
+          for (let i = 0; i < Math.min(HABITS_COUNT, input.length); i++) {
+            if (Array.isArray(input[i])) {
+              for (let d = 0; d < Math.min(DAYS_COUNT, input[i].length); d++) {
+                data[i][d] = input[i][d] ? 1 : 0;
+              }
+            }
+          }
+        }
+        return data;
+      }
+
+      function normalizePomodoros(input) {
+        const arr = Array(DAYS_COUNT).fill(0);
+        if (Array.isArray(input)) {
+          for (let i = 0; i < Math.min(DAYS_COUNT, input.length); i++) {
+            const val = Number(input[i]) || 0;
+            arr[i] = val < 0 ? 0 : val;
+          }
+        }
+        return arr;
+      }
+
+      function loadState() {
+        const today = new Date();
+        const defaultLabel = today.toLocaleString("ru-RU", {
+          month: "long",
+          year: "numeric",
+        });
+        const defaultDays = new Date(
+          today.getFullYear(),
+          today.getMonth() + 1,
+          0
+        ).getDate();
+
+        const defaults = {
+          monthLabel: defaultLabel,
+          daysInMonth: defaultDays,
+          goal: "",
+          habits: [
+            "Сон ≥ 7 часов",
+            "Тренировка / активность",
+            "Учёба / чтение",
+            "Главный проект",
+            "Медитация / дыхание",
+            "Питание по плану",
+            "Вода ≥ 2л",
+            "Прогулка / свежий воздух",
+            "Язык / навыки",
+            "Свободный слот",
+          ],
+          habitData: Array.from({ length: HABITS_COUNT }, () =>
+            Array(DAYS_COUNT).fill(0)
+          ),
+          pomodorosPerDay: Array(DAYS_COUNT).fill(0),
+        };
+
+        try {
+          const raw = localStorage.getItem(STORAGE_KEY);
+          if (!raw) return defaults;
+          const parsed = JSON.parse(raw);
+          return {
+            monthLabel: parsed.monthLabel || defaultLabel,
+            daysInMonth: parsed.daysInMonth || defaultDays,
+            goal: parsed.goal || "",
+            habits:
+              Array.isArray(parsed.habits) && parsed.habits.length
+                ? parsed.habits.slice(0, HABITS_COUNT)
+                : defaults.habits,
+            habitData: normalizeHabitData(parsed.habitData),
+            pomodorosPerDay: normalizePomodoros(parsed.pomodorosPerDay),
+          };
+        } catch (e) {
+          console.warn("Failed to load state:", e);
+          return defaults;
+        }
+      }
+
+      let state = loadState();
+
+      function saveState() {
+        try {
+          localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        } catch (e) {
+          console.warn("Failed to save state:", e);
+        }
+      }
+
+      const monthLabelInput = document.getElementById("monthLabel");
+      const daysInMonthInput = document.getElementById("daysInMonth");
+      const monthGoalTextarea = document.getElementById("monthGoal");
+      const habitsTableBody = document.querySelector("#habitsTable tbody");
+      const overallPercentEl = document.getElementById("overallPercent");
+      const overallProgressFill = document.getElementById(
+        "overallProgressFill"
+      );
+      const todayHabitsEl = document.getElementById("todayHabits");
+      const kpiTotalChecksEl = document.getElementById("kpiTotalChecks");
+      const kpiAvgDayEl = document.getElementById("kpiAvgDay");
+      const weeklyListEl = document.getElementById("weeklyList");
+      const resetAllEl = document.getElementById("resetAll");
+      const todayPomosEl = document.getElementById("todayPomos");
+      const pomodoroChartEl = document.getElementById("pomodoroChart");
+
+      let pomodoroTimerId = null;
+      let pomodoroLengthSeconds =
+        (parseInt(document.getElementById("pomodoroLength").value, 10) ||
+          25) * 60;
+      let remainingSeconds = pomodoroLengthSeconds;
+
+      function buildHabitsTable() {
+        habitsTableBody.innerHTML = "";
+        for (let i = 0; i < HABITS_COUNT; i++) {
+          const tr = document.createElement("tr");
+
+          const nameTd = document.createElement("td");
+          const nameInput = document.createElement("input");
+          nameInput.type = "text";
+          nameInput.className = "habit-name-input";
+          nameInput.dataset.index = String(i);
+          nameInput.value = state.habits[i] || "";
+          nameTd.appendChild(nameInput);
+          tr.appendChild(nameTd);
+
+          for (let d = 0; d < DAYS_COUNT; d++) {
+            const td = document.createElement("td");
+            td.className = "day-cell";
+            td.dataset.row = String(i);
+            td.dataset.day = String(d + 1);
+            if (state.habitData[i][d]) {
+              td.classList.add("done");
+            }
+            tr.appendChild(td);
+          }
+
+          const pctTd = document.createElement("td");
+          pctTd.className = "pct-cell";
+          pctTd.dataset.row = String(i);
+          pctTd.textContent = "0%";
+          tr.appendChild(pctTd);
+
+          habitsTableBody.appendChild(tr);
+        }
+
+        habitsTableBody.addEventListener("click", function (e) {
+          const td = e.target;
+          if (!td || !td.classList.contains("day-cell")) return;
+          const row = parseInt(td.dataset.row, 10);
+          const day = parseInt(td.dataset.day, 10);
+          if (Number.isNaN(row) || Number.isNaN(day)) return;
+          const idx = day - 1;
+          const current = state.habitData[row][idx] ? 1 : 0;
+          const next = current ? 0 : 1;
+          state.habitData[row][idx] = next;
+          td.classList.toggle("done", !!next);
+          saveState();
+          recalcStats();
+        });
+
+        habitsTableBody.addEventListener("change", function (e) {
+          const input = e.target;
+          if (!input.classList.contains("habit-name-input")) return;
+          const idx = parseInt(input.dataset.index, 10);
+          if (Number.isNaN(idx)) return;
+          state.habits[idx] = input.value || "";
+          saveState();
+          recalcStats();
+        });
+      }
+
+      function recalcStats() {
+        const days = Math.min(
+          Math.max(parseInt(state.daysInMonth, 10) || DAYS_COUNT, 1),
+          DAYS_COUNT
+        );
+        const today = new Date();
+        const todayDay = today.getDate();
+        const todayIdx =
+          todayDay >= 1 && todayDay <= DAYS_COUNT ? todayDay - 1 : null;
+
+        let totalChecks = 0;
+        let totalPossible = 0;
+        let todayChecks = 0;
+        let todayPossible = 0;
+
+        for (let i = 0; i < HABITS_COUNT; i++) {
+          const name = (state.habits[i] || "").trim();
+          const pctTd = habitsTableBody.querySelector(
+            `td.pct-cell[data-row="${i}"]`
+          );
+          if (!name) {
+            if (pctTd) pctTd.textContent = "-";
+            continue;
+          }
+          let rowDone = 0;
+          for (let d = 0; d < days; d++) {
+            const v = state.habitData[i][d] ? 1 : 0;
+            rowDone += v;
+            totalChecks += v;
+            totalPossible += 1;
+            if (todayIdx !== null && d === todayIdx) {
+              todayChecks += v;
+              todayPossible += 1;
+            }
+          }
+          const pct = days > 0 ? Math.round((rowDone / days) * 100) : 0;
+          if (pctTd) pctTd.textContent = pct + "%";
+        }
+
+        const overallPct =
+          totalPossible > 0 ? Math.round((totalChecks / totalPossible) * 100) : 0;
+        overallPercentEl.textContent = overallPct + "%";
+        overallProgressFill.style.width = overallPct + "%";
+
+        todayHabitsEl.textContent = todayChecks + "/" + todayPossible;
+        kpiTotalChecksEl.textContent = String(totalChecks);
+
+        const avgDayPct =
+          days > 0 && totalPossible > 0
+            ? Math.round(
+                (totalChecks / days / Math.max(todayPossible || 1, 1)) * 100
+              )
+            : 0;
+        kpiAvgDayEl.textContent = avgDayPct + "%";
+
+        renderWeeklyOverview();
+        renderPomodoroSummary();
+      }
+
+      function renderWeeklyOverview() {
+        const days = Math.min(
+          Math.max(parseInt(state.daysInMonth, 10) || DAYS_COUNT, 1),
+          DAYS_COUNT
+        );
+        weeklyListEl.innerHTML = "";
+        const activeHabitIndexes = [];
+        for (let i = 0; i < HABITS_COUNT; i++) {
+          if ((state.habits[i] || "").trim()) activeHabitIndexes.push(i);
+        }
+        if (!activeHabitIndexes.length || days === 0) {
+          const li = document.createElement("li");
+          li.textContent = "Добавь хотя бы одну привычку, чтобы видеть статистику.";
+          weeklyListEl.appendChild(li);
+          return;
+        }
+
+        let weekNumber = 1;
+        for (let start = 0; start < days; start += 7) {
+          const end = Math.min(days, start + 7);
+          let possible = 0;
+          let done = 0;
+          for (const i of activeHabitIndexes) {
+            for (let d = start; d < end; d++) {
+              possible += 1;
+              if (state.habitData[i][d]) done += 1;
+            }
+          }
+          const pct = possible ? Math.round((done / possible) * 100) : 0;
+          const li = document.createElement("li");
+          const spanLabel = document.createElement("span");
+          spanLabel.textContent = `Неделя ${weekNumber} (${start + 1}–${end})`;
+          const spanValue = document.createElement("span");
+          spanValue.className = "value";
+          spanValue.textContent = pct + "%";
+          li.appendChild(spanLabel);
+          li.appendChild(spanValue);
+          weeklyListEl.appendChild(li);
+          weekNumber++;
+        }
+      }
+
+      function renderPomodoroChart() {
+        pomodoroChartEl.innerHTML = "";
+        const maxVal = Math.max(...state.pomodorosPerDay, 1);
+        for (let d = 0; d < DAYS_COUNT; d++) {
+          const bar = document.createElement("div");
+          bar.className = "pomodoro-bar";
+          const fill = document.createElement("div");
+          fill.className = "pomodoro-bar-fill";
+          const label = document.createElement("div");
+          label.className = "pomodoro-bar-label";
+          label.textContent = d + 1;
+          const val = state.pomodorosPerDay[d] || 0;
+          const h = (val / maxVal) * 100;
+          fill.style.height = h + "%";
+          bar.appendChild(fill);
+          bar.appendChild(label);
+          pomodoroChartEl.appendChild(bar);
+        }
+      }
+
+      function renderPomodoroSummary() {
+        const today = new Date();
+        const todayDay = today.getDate();
+        const idx =
+          todayDay >= 1 && todayDay <= DAYS_COUNT ? todayDay - 1 : null;
+        if (idx !== null) {
+          todayPomosEl.textContent = String(state.pomodorosPerDay[idx] || 0);
+        } else {
+          todayPomosEl.textContent = "0";
+        }
+        renderPomodoroChart();
+      }
+
+      function updatePomodoroDisplay() {
+        const minutes = Math.floor(remainingSeconds / 60);
+        const seconds = remainingSeconds % 60;
+        const display =
+          String(minutes).padStart(2, "0") +
+          ":" +
+          String(seconds).padStart(2, "0");
+        document.getElementById("pomodoroDisplay").textContent = display;
+      }
+
+      function startPomodoro() {
+        if (pomodoroTimerId) return;
+        const lengthMin =
+          parseInt(document.getElementById("pomodoroLength").value, 10) || 25;
+        if (!pomodoroLengthSeconds || remainingSeconds === pomodoroLengthSeconds) {
+          pomodoroLengthSeconds = lengthMin * 60;
+          remainingSeconds = pomodoroLengthSeconds;
+          updatePomodoroDisplay();
+        }
+        pomodoroTimerId = setInterval(() => {
+          remainingSeconds -= 1;
+          if (remainingSeconds <= 0) {
+            clearInterval(pomodoroTimerId);
+            pomodoroTimerId = null;
+            remainingSeconds = pomodoroLengthSeconds;
+            updatePomodoroDisplay();
+            handlePomodoroFinished();
+          } else {
+            updatePomodoroDisplay();
+          }
+        }, 1000);
+      }
+
+      function pausePomodoro() {
+        if (!pomodoroTimerId) return;
+        clearInterval(pomodoroTimerId);
+        pomodoroTimerId = null;
+      }
+
+      function resetPomodoro() {
+        clearInterval(pomodoroTimerId);
+        pomodoroTimerId = null;
+        const lengthMin =
+          parseInt(document.getElementById("pomodoroLength").value, 10) || 25;
+        pomodoroLengthSeconds = lengthMin * 60;
+        remainingSeconds = pomodoroLengthSeconds;
+        updatePomodoroDisplay();
+      }
+
+      function handlePomodoroFinished() {
+        const today = new Date();
+        const day = today.getDate();
+        if (day >= 1 && day <= DAYS_COUNT) {
+          state.pomodorosPerDay[day - 1] =
+            (state.pomodorosPerDay[day - 1] || 0) + 1;
+          saveState();
+          renderPomodoroSummary();
+        }
+      }
+
+      monthLabelInput.value = state.monthLabel || "";
+      daysInMonthInput.value = state.daysInMonth || DAYS_COUNT;
+      monthGoalTextarea.value = state.goal || "";
+
+      monthLabelInput.addEventListener("change", () => {
+        state.monthLabel = monthLabelInput.value || "";
+        saveState();
+      });
+
+      monthGoalTextarea.addEventListener("change", () => {
+        state.goal = monthGoalTextarea.value || "";
+        saveState();
+      });
+
+      daysInMonthInput.addEventListener("change", () => {
+        let v = parseInt(daysInMonthInput.value, 10) || DAYS_COUNT;
+        if (v < 1) v = 1;
+        if (v > DAYS_COUNT) v = DAYS_COUNT;
+        daysInMonthInput.value = v;
+        state.daysInMonth = v;
+        saveState();
+        recalcStats();
+      });
+
+      document
+        .getElementById("startPomodoro")
+        .addEventListener("click", startPomodoro);
+      document
+        .getElementById("pausePomodoro")
+        .addEventListener("click", pausePomodoro);
+      document
+        .getElementById("resetPomodoro")
+        .addEventListener("click", resetPomodoro);
+
+      resetAllEl.addEventListener("click", () => {
+        if (
+          !confirm(
+            "Сбросить все привычки, отметки и статистику Pomodoro? Это действие нельзя отменить."
+          )
+        ) {
+          return;
+        }
+        state = loadState();
+        state.habitData = Array.from({ length: HABITS_COUNT }, () =>
+          Array(DAYS_COUNT).fill(0)
+        );
+        state.pomodorosPerDay = Array(DAYS_COUNT).fill(0);
+        saveState();
+        monthLabelInput.value = state.monthLabel || "";
+        daysInMonthInput.value = state.daysInMonth || DAYS_COUNT;
+        monthGoalTextarea.value = state.goal || "";
+        buildHabitsTable();
+        recalcStats();
+      });
+
+      buildHabitsTable();
+      updatePomodoroDisplay();
+      recalcStats();
+    })();
+  </script>
+</body>
+</html>

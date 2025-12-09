@@ -685,6 +685,128 @@
       color: var(--text-muted);
       opacity: 0.7;
     }
+    /* ===== АДАПТАЦИЯ ПОД ПЛАНШЕТ / ТЕЛЕФОН ===== */
+@media (max-width: 768px) {
+  .app-shell {
+    padding: 8px 8px 16px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .header-caption {
+    text-align: left;
+    font-size: 11px;
+  }
+
+  .panel {
+    padding: 10px 10px 10px;
+    border-radius: 12px;
+    margin-bottom: 10px;
+  }
+
+  .panel-title {
+    font-size: 14px;
+  }
+
+  .panel-subtitle {
+    font-size: 10px;
+  }
+
+  .motto-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .motto-input,
+  .date-input,
+  .month-input {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Вьюшка с таблицей — отдельный скролл, чтобы не растягивать всю страницу */
+  .grid-wrapper,
+  .top3-wrapper {
+    max-height: 60vh;
+    overflow-x: auto;
+    overflow-y: auto;
+  }
+
+  table.main-grid {
+    font-size: 9px;
+  }
+
+  .habit-name-cell {
+    min-width: 160px;
+  }
+
+  .day-cell {
+    min-width: 24px;
+    height: 24px;
+  }
+
+  .chart-container {
+    height: 200px;
+  }
+
+  .weekly-layout,
+  .top-main-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 540px) {
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 14px;
+    font-size: 14px;
+  }
+
+  .brand-text-title {
+    font-size: 16px;
+  }
+
+  .brand-text-sub {
+    font-size: 10px;
+  }
+
+  .side-progress {
+    padding: 8px;
+  }
+
+  .side-main-number {
+    font-size: 18px;
+  }
+
+  .week-legend {
+    font-size: 10px;
+  }
+
+  .weekly-summary-list {
+    font-size: 10px;
+  }
+
+  /* прогресс-блоки по неделям в две колонки, чтобы не были слишком мелкими */
+  .final-bars {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* топ-3 задачи — тоже отдельный скролл, но крупнее шрифт */
+  table.top3-grid {
+    min-width: 720px;
+    font-size: 10px;
+  }
+
+  .top3-input {
+    font-size: 10px;
+  }
+}
+
   </style>
 </head>
 <body>

@@ -5,18 +5,18 @@
   <title>Croc Lab · Месячный трекер привычек</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Иконка Croc Lab (файл crock0dole-icon.png положи в корень репозитория) -->
+  <!-- Логотип Croc Lab -->
   <link rel="apple-touch-icon" href="crock0dole-icon.png" />
   <link rel="icon" type="image/png" href="crock0dole-icon.png" />
 
   <style>
     :root {
-      --bg: #02040d;
-      --bg-panel: #050919;
-      --bg-panel-soft: #070d23;
-      --grid-border: #1d2649;
+      --bg: #060a1f;
+      --bg-panel: #091233;
+      --bg-panel-soft: #0b153f;
+      --grid-border: #1f2e5a;
       --text-main: #f7f8ff;
-      --text-muted: #94a1d6;
+      --text-muted: #9ca8e0;
 
       --accent-pink: #ff2e9f;
       --accent-cyan: #27e4ff;
@@ -36,8 +36,13 @@
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
         "Segoe UI", sans-serif;
       background:
-        radial-gradient(circle at top, #122259 0, #02040d 55%, #010208 100%);
+        radial-gradient(circle at top, #253b8b 0, #060a1f 55%, #030415 100%);
       color: var(--text-main);
+    }
+
+    /* Заглушка для ПК */
+    .desktop-message {
+      display: none;
     }
 
     .app-shell {
@@ -67,20 +72,23 @@
       height: 44px;
       border-radius: 16px;
       background:
-        radial-gradient(circle at 20% 20%, var(--accent-green), transparent 55%),
-        radial-gradient(circle at 80% 25%, var(--accent-cyan), transparent 60%),
-        radial-gradient(circle at 50% 90%, #041329, #02040d 75%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 16px;
-      letter-spacing: 0.08em;
-      text-transform: lowercase;
-      color: #02040d;
+        radial-gradient(circle at 20% 20%, var(--accent-green), transparent 60%),
+        radial-gradient(circle at 80% 25%, var(--accent-cyan), transparent 65%),
+        radial-gradient(circle at 50% 90%, #061335, #020515 80%);
       box-shadow:
         0 0 18px rgba(45, 255, 152, 0.9),
         0 0 26px rgba(39, 228, 255, 0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .brand-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: inherit;
     }
 
     .brand-text-title {
@@ -110,12 +118,12 @@
     /* Общие панели */
 
     .panel {
-      background: linear-gradient(145deg, var(--bg-panel-soft), #050919);
+      background: linear-gradient(145deg, var(--bg-panel-soft), var(--bg-panel));
       border-radius: 16px;
-      border: 1px solid #223368;
+      border: 1px solid #27356b;
       box-shadow:
-        0 20px 40px rgba(0, 0, 0, 0.9),
-        0 0 26px rgba(39, 228, 255, 0.2);
+        0 18px 34px rgba(0, 0, 0, 0.75),
+        0 0 26px rgba(39, 228, 255, 0.18);
       padding: 14px 14px 12px;
       margin-bottom: 14px;
     }
@@ -148,12 +156,6 @@
       gap: 12px;
     }
 
-    @media (max-width: 1024px) {
-      .top-main-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
     .motto-row {
       display: flex;
       justify-content: space-between;
@@ -179,9 +181,9 @@
     .motto-input,
     .date-input,
     .month-input {
-      background: #04081a;
+      background: #07112f;
       border-radius: 999px;
-      border: 1px solid #283d7a;
+      border: 1px solid #31478d;
       padding: 4px 10px;
       font-size: 12px;
       color: var(--text-main);
@@ -205,7 +207,7 @@
       border-color: var(--accent-cyan);
       box-shadow:
         0 0 0 1px rgba(39, 228, 255, 0.4),
-        0 0 14px rgba(45, 255, 152, 0.5);
+        0 0 14px rgba(45, 255, 152, 0.6);
     }
 
     .month-label-row {
@@ -229,7 +231,7 @@
       border-radius: 12px;
       overflow: auto;
       border: 1px solid var(--grid-border);
-      background: #050818;
+      background: #050b25;
     }
 
     table.main-grid {
@@ -248,7 +250,7 @@
     }
 
     .main-grid thead th {
-      background: #070f28;
+      background: #081233;
       white-space: nowrap;
     }
 
@@ -297,7 +299,7 @@
     .habit-name-cell {
       text-align: left;
       min-width: 210px;
-      background: #070f28;
+      background: #081233;
       position: sticky;
       left: 0;
       z-index: 1;
@@ -306,8 +308,8 @@
     .habit-input {
       width: 100%;
       border-radius: 7px;
-      border: 1px solid #26376a;
-      background: #04081a;
+      border: 1px solid #31478d;
+      background: #07112f;
       padding: 3px 6px;
       font-size: 12px;
       color: var(--text-main);
@@ -325,7 +327,7 @@
       cursor: pointer;
       min-width: 24px;
       height: 22px;
-      background: #050818;
+      background: #050b25;
       transition:
         background 0.12s ease,
         box-shadow 0.12s ease,
@@ -333,7 +335,7 @@
     }
 
     .day-cell:hover {
-      background: #101d3f;
+      background: #13235a;
       transform: translateY(-1px);
     }
 
@@ -350,9 +352,9 @@
     /* Боковая панель прогресса */
 
     .side-progress {
-      background: #050919;
+      background: #081233;
       border-radius: 12px;
-      border: 1px solid #223368;
+      border: 1px solid #27356b;
       padding: 10px 10px 8px;
       display: flex;
       flex-direction: column;
@@ -396,7 +398,7 @@
       flex: 1;
       height: 6px;
       border-radius: 999px;
-      background: #050818;
+      background: #050b25;
       overflow: hidden;
     }
 
@@ -424,12 +426,6 @@
       display: grid;
       grid-template-columns: minmax(0, 3fr) minmax(260px, 1.2fr);
       gap: 12px;
-    }
-
-    @media (max-width: 1024px) {
-      .weekly-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
     }
 
     .week-legend {
@@ -491,10 +487,10 @@
     }
 
     .final-bar-item {
-      background: #050818;
+      background: #050b25;
       border-radius: 10px;
       padding: 4px 5px 6px;
-      border: 1px solid #23346a;
+      border: 1px solid #27356b;
     }
 
     .final-bar-label {
@@ -526,9 +522,9 @@
     }
 
     .donut-box {
-      background: #050919;
+      background: #081233;
       border-radius: 12px;
-      border: 1px solid #23346a;
+      border: 1px solid #27356b;
       padding: 10px 10px 8px;
     }
 
@@ -560,7 +556,7 @@
       border-radius: 12px;
       overflow: auto;
       border: 1px solid var(--grid-border);
-      background: #050818;
+      background: #050b25;
     }
 
     table.top3-grid {
@@ -577,7 +573,7 @@
     }
 
     .top3-grid th {
-      background: #070f28;
+      background: #081233;
       text-transform: uppercase;
       letter-spacing: 0.14em;
       color: var(--text-muted);
@@ -585,7 +581,7 @@
 
     .top3-grid td.day-label {
       width: 80px;
-      background: #070f28;
+      background: #081233;
       position: sticky;
       left: 0;
       z-index: 1;
@@ -602,8 +598,8 @@
       flex: 1;
       min-width: 0;
       border-radius: 7px;
-      border: 1px solid #26376a;
-      background: #04081a;
+      border: 1px solid #31478d;
+      background: #07112f;
       padding: 3px 6px;
       font-size: 11px;
       color: var(--text-main);
@@ -636,9 +632,9 @@
     }
 
     button {
-      background: #050919;
+      background: #081233;
       border-radius: 999px;
-      border: 1px solid #283d7a;
+      border: 1px solid #31478d;
       color: var(--text-main);
       padding: 5px 12px;
       font-size: 11px;
@@ -667,7 +663,7 @@
 
     button:hover {
       transform: translateY(-1px);
-      background: #081331;
+      background: #0d1a3e;
     }
 
     button:active {
@@ -685,222 +681,270 @@
       color: var(--text-muted);
       opacity: 0.7;
     }
-    /* ===== АГРЕССИВНАЯ МОБИЛЬНАЯ УПЛОТНЁНКА ===== */
-@media (max-width: 768px) {
-  .app-shell {
-    padding: 4px 6px 12px;
-  }
 
-  .header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    margin-bottom: 8px;
-  }
+    /* ===== мобильная уплотнёнка ===== */
+    @media (max-width: 768px) {
+      .app-shell {
+        padding: 4px 6px 12px;
+      }
 
-  .header-caption {
-    text-align: left;
-    font-size: 10px;
-    max-width: 260px;
-    line-height: 1.3;
-  }
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        margin-bottom: 8px;
+      }
 
-  .panel {
-    padding: 8px 8px 8px;
-    border-radius: 12px;
-    margin-bottom: 8px;
-  }
+      .header-caption {
+        text-align: left;
+        font-size: 10px;
+        max-width: 260px;
+        line-height: 1.3;
+      }
 
-  .panel-header-row {
-    margin-bottom: 4px;
-  }
+      .panel {
+        padding: 8px 8px 8px;
+        border-radius: 12px;
+        margin-bottom: 8px;
+      }
 
-  .panel-title {
-    font-size: 13px;
-  }
+      .panel-header-row {
+        margin-bottom: 4px;
+      }
 
-  .panel-subtitle {
-    font-size: 9px;
-  }
+      .panel-title {
+        font-size: 13px;
+      }
 
-  .motto-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    margin-bottom: 6px;
-  }
+      .panel-subtitle {
+        font-size: 9px;
+      }
 
-  .motto-input,
-  .date-input,
-  .month-input {
-    width: 100%;
-    max-width: 100%;
-    font-size: 11px;
-    padding: 4px 8px;
-  }
+      .motto-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        margin-bottom: 6px;
+      }
 
-  .month-label-row {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 4px;
-    font-size: 10px;
-    margin-bottom: 6px;
-  }
+      .motto-input,
+      .date-input,
+      .month-input {
+        width: 100%;
+        max-width: 100%;
+        font-size: 11px;
+        padding: 4px 8px;
+      }
 
-  /* Таблица месяца — чуть мельче и ниже по высоте */
-  .grid-wrapper {
-    max-height: 52vh;
-    overflow-x: auto;
-    overflow-y: auto;
-  }
+      .month-label-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+        font-size: 10px;
+        margin-bottom: 6px;
+      }
 
-  table.main-grid {
-    font-size: 9px;
-  }
+      .grid-wrapper {
+        max-height: 52vh;
+        overflow-x: auto;
+        overflow-y: auto;
+      }
 
-  .week-band-row th {
-    font-size: 9px;
-  }
+      table.main-grid {
+        font-size: 9px;
+      }
 
-  .habit-name-cell {
-    min-width: 150px;
-    padding: 3px 4px;
-  }
+      .week-band-row th {
+        font-size: 9px;
+      }
 
-  .habit-input {
-    font-size: 10px;
-    padding: 3px 6px;
-  }
+      .habit-name-cell {
+        min-width: 150px;
+        padding: 3px 4px;
+      }
 
-  .day-cell {
-    min-width: 22px;
-    height: 20px;
-  }
+      .habit-input {
+        font-size: 10px;
+        padding: 3px 6px;
+      }
 
-  /* Блок прогресса под сеткой — меньше отступов и шрифтов */
-  .side-progress {
-    padding: 8px;
-  }
+      .day-cell {
+        min-width: 22px;
+        height: 20px;
+      }
 
-  .side-title {
-    font-size: 11px;
-  }
+      .side-progress {
+        padding: 8px;
+      }
 
-  .side-main-number {
-    font-size: 18px;
-  }
+      .side-title {
+        font-size: 11px;
+      }
 
-  .mini-bar-row {
-    font-size: 9px;
-    gap: 4px;
-  }
+      .side-main-number {
+        font-size: 18px;
+      }
 
-  .mini-bar-label {
-    width: 26px;
-  }
+      .mini-bar-row {
+        font-size: 9px;
+        gap: 4px;
+      }
 
-  .mini-bar-pct {
-    width: 70px; /* чтобы влезали длинные названия справа */
-    text-align: left;
-  }
+      .mini-bar-label {
+        width: 26px;
+      }
 
-  .controls-row {
-    margin-top: 6px;
-    justify-content: space-between;
-  }
+      .mini-bar-pct {
+        width: 70px;
+        text-align: left;
+      }
 
-  button {
-    padding: 4px 10px;
-    font-size: 10px;
-  }
+      .controls-row {
+        margin-top: 6px;
+        justify-content: space-between;
+      }
 
-  .weekly-layout,
-  .top-main-layout {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 8px;
-  }
+      button {
+        padding: 4px 10px;
+        font-size: 10px;
+      }
 
-  .chart-container {
-    height: 190px;
-  }
+      .weekly-layout,
+      .top-main-layout {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 8px;
+      }
 
-  .week-legend {
-    font-size: 10px;
-  }
+      .chart-container {
+        height: 190px;
+      }
 
-  .weekly-summary-list {
-    font-size: 10px;
-  }
+      .week-legend {
+        font-size: 10px;
+      }
 
-  .final-bars {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 4px;
-  }
+      .weekly-summary-list {
+        font-size: 10px;
+      }
 
-  .donut-box {
-    padding: 8px;
-  }
+      .final-bars {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px;
+      }
 
-  .donut-title {
-    font-size: 11px;
-  }
+      .donut-box {
+        padding: 8px;
+      }
 
-  .donut-numbers {
-    font-size: 10px;
-  }
+      .donut-title {
+        font-size: 11px;
+      }
 
-  /* Топ-3 задачи — отдельный скролл, немного мельче */
-  .top3-wrapper {
-    max-height: 50vh;
-    overflow-x: auto;
-    overflow-y: auto;
-  }
+      .donut-numbers {
+        font-size: 10px;
+      }
 
-  table.top3-grid {
-    min-width: 720px;
-    font-size: 10px;
-  }
+      .top3-wrapper {
+        max-height: 50vh;
+        overflow-x: auto;
+        overflow-y: auto;
+      }
 
-  .top3-input {
-    font-size: 10px;
-    padding: 3px 5px;
-  }
+      table.top3-grid {
+        min-width: 720px;
+        font-size: 10px;
+      }
 
-  .top3-checkbox {
-    width: 14px;
-    height: 14px;
-  }
+      .top3-input {
+        font-size: 10px;
+        padding: 3px 5px;
+      }
 
-  .footer {
-    font-size: 9px;
-    margin-top: 8px;
-  }
-}
+      .top3-checkbox {
+        width: 14px;
+        height: 14px;
+      }
 
-@media (max-width: 540px) {
-  .brand-logo {
-    width: 34px;
-    height: 34px;
-    border-radius: 12px;
-    font-size: 13px;
-  }
+      .footer {
+        font-size: 9px;
+        margin-top: 8px;
+      }
 
-  .brand-text-title {
-    font-size: 15px;
-  }
+      .brand-logo {
+        width: 40px;
+        height: 40px;
+      }
+    }
 
-  .brand-text-sub {
-    font-size: 9px;
-  }
-}
+    @media (max-width: 540px) {
+      .brand-logo {
+        width: 34px;
+        height: 34px;
+        border-radius: 12px;
+      }
 
+      .brand-text-title {
+        font-size: 15px;
+      }
+
+      .brand-text-sub {
+        font-size: 9px;
+      }
+    }
+
+    /* ===== только мобильная версия ===== */
+
+    @media (min-width: 769px) {
+      .desktop-message {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 24px;
+        text-align: center;
+        font-size: 16px;
+        color: var(--text-main);
+        background:
+          radial-gradient(circle at top, #253b8b 0, #060a1f 55%, #030415 100%);
+      }
+
+      .desktop-message span {
+        max-width: 480px;
+      }
+
+      .app-shell {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .desktop-message {
+        display: none;
+      }
+
+      .app-shell {
+        display: block;
+      }
+    }
   </style>
 </head>
 <body>
+  <!-- Сообщение для ПК -->
+  <div class="desktop-message">
+    <span>
+      Croc Lab · месячный трекер привычек.<br /><br />
+      Этот трекер рассчитан под мобильный экран.
+      Открой сайт с телефона, чтобы пользоваться планером.
+    </span>
+  </div>
+
+  <!-- Мобильный планер -->
   <div class="app-shell">
     <header class="header">
       <div class="brand">
-        <div class="brand-logo">c0</div>
+        <div class="brand-logo">
+          <img src="crock0dole-icon.png" alt="Croc Lab" />
+        </div>
         <div>
           <div class="brand-text-title">croc lab</div>
           <div class="brand-text-sub">turn life into a game</div>
@@ -938,7 +982,7 @@
           <div class="month-label-row">
             <span>Месяц</span>
             <input id="monthInput" class="month-input" type="text"
-                   placeholder="Например: Декабрь 2025" />
+                   placeholder="Например: Декабрь 2025 г." />
           </div>
 
           <div class="grid-wrapper">
@@ -1080,13 +1124,12 @@
       <div class="panel-header-row">
         <div class="panel-title">ТОП-3 задачи на каждый день</div>
         <div class="panel-subtitle">
-          Для фокуса на главном: до трёх ключевых задач в сутки
+          До трёх ключевых задач в сутки. Галочка = задача выполнена.
         </div>
       </div>
 
       <div class="top3-hint">
-        Пиши конкретные действия. Галочка = задача выполнена. Эти данные тоже
-        сохраняются локально.
+        Пиши конкретные действия. Эти данные тоже сохраняются локально в этом браузере.
       </div>
 
       <div class="top3-wrapper">
@@ -1116,12 +1159,12 @@
     (function () {
       const STORAGE_KEY = "croc_lab_neon_month_v1";
 
-      const HABIT_ROWS = 8;        // строк привычек
+      const HABIT_ROWS = 8;
       const TOTAL_DAYS = 31;
       const WEEKS = 4;
       const DAYS_PER_WEEK = 7;
 
-      // DOM-ссылки
+      // DOM
       const mottoInput = document.getElementById("mottoInput");
       const dateInput = document.getElementById("dateInput");
       const monthInput = document.getElementById("monthInput");
@@ -1244,14 +1287,13 @@
         }
       }
 
-      /* Рисуем основную сетку */
+      /* основная сетка */
 
       function buildMainGrid() {
         mainGridBody.innerHTML = "";
         for (let row = 0; row < HABIT_ROWS; row++) {
           const tr = document.createElement("tr");
 
-          // колонка с названием привычки
           const nameTd = document.createElement("td");
           nameTd.className = "habit-name-cell";
 
@@ -1265,7 +1307,6 @@
           nameTd.appendChild(input);
           tr.appendChild(nameTd);
 
-          // 31 день
           for (let d = 0; d < TOTAL_DAYS; d++) {
             const td = document.createElement("td");
             td.className = "day-cell";
@@ -1288,7 +1329,7 @@
           if ((h.text || "").trim()) activeRows.push(i);
         });
 
-        activeRows.forEach((row, idx) => {
+        activeRows.forEach((row) => {
           let done = 0;
           for (let d = 0; d < TOTAL_DAYS; d++) {
             if (state.checks[row][d]) done += 1;
@@ -1373,10 +1414,9 @@
         }
       }
 
-      /* События */
+      /* события */
 
       function attachHandlers() {
-        // клики по клеткам
         mainGridBody.addEventListener("click", (e) => {
           const td = e.target;
           if (!td.classList.contains("day-cell")) return;
@@ -1392,7 +1432,6 @@
           recalcStats();
         });
 
-        // названия привычек
         mainGridBody.addEventListener("input", (e) => {
           const input = e.target;
           if (!input.classList.contains("habit-input")) return;
@@ -1403,7 +1442,6 @@
           recalcStats();
         });
 
-        // верхние инпуты
         mottoInput.addEventListener("input", () => {
           state.motto = mottoInput.value || "";
           saveState();
@@ -1419,7 +1457,6 @@
           saveState();
         });
 
-        // топ-3 задачи
         top3GridBody.addEventListener("input", (e) => {
           const input = e.target;
           if (!input.classList.contains("top3-input")) return;
@@ -1440,7 +1477,6 @@
           saveState();
         });
 
-        // кнопки
         resetChecksBtn.addEventListener("click", () => {
           state.checks = state.checks.map((row) => row.map(() => 0));
           saveState();
@@ -1478,7 +1514,7 @@
         });
       }
 
-      /* Подсчёты */
+      /* подсчёт статистики */
 
       function recalcStats() {
         const activeRows = [];
@@ -1519,7 +1555,6 @@
         monthPctTextEl.textContent = `${pct}% от запланированных привычек`;
         buildPerHabitBars();
 
-        // список по неделям
         weeklyListEl.innerHTML = "";
         weekStats.forEach((w, idx) => {
           const li = document.createElement("li");
@@ -1539,7 +1574,6 @@
           weeklyListEl.appendChild(li);
         });
 
-        // прогресс-бары по неделям
         const weekPercents = weekStats.map((w) =>
           w.possible ? Math.round((w.done / w.possible) * 100) : 0
         );
@@ -1548,12 +1582,8 @@
         barW3.style.width = weekPercents[2] + "%";
         barW4.style.width = weekPercents[3] + "%";
 
-        // график по неделям
-          updateWeekChart(weekPercents);
-
-        // пончик «выполнено» — по неделям
-          updateDonutChart(weekStats, totalDone, left, pct);
-
+        updateWeekChart(weekPercents);
+        updateDonutChart(weekStats, totalDone, left, pct);
       }
 
       function neonColors(count) {
@@ -1612,7 +1642,7 @@
                   beginAtZero: true,
                   max: 100,
                   ticks: {
-                    color: "#94a1d6",
+                    color: "#9ca8e0",
                     font: { size: 10 },
                     callback: (v) => v + "%",
                   },
@@ -1629,72 +1659,69 @@
       }
 
       function updateDonutChart(weekStats, totalDone, left, pct) {
-  if (typeof Chart === "undefined") return;
-  const ctx = document.getElementById("donutChart").getContext("2d");
+        if (typeof Chart === "undefined") return;
+        const ctx = document.getElementById("donutChart").getContext("2d");
 
-  // Выполнено по неделям
-  const weekDone = weekStats.map((w) => w.done);
-  const labels = ["Неделя 1", "Неделя 2", "Неделя 3", "Неделя 4", "Осталось"];
-  const data = [...weekDone, Math.max(left, 0)];
+        const weekDone = weekStats.map((w) => w.done);
+        const labels = ["Неделя 1", "Неделя 2", "Неделя 3", "Неделя 4", "Осталось"];
+        const data = [...weekDone, Math.max(left, 0)];
 
-  // Те же неоновые цвета, что и в «Еженедельном обзоре»
-  const colors = [
-    "rgba(255,46,159,0.95)",   // неделя 1
-    "rgba(169,91,255,0.95)",   // неделя 2
-    "rgba(39,228,255,0.95)",   // неделя 3
-    "rgba(255,230,0,0.95)",    // неделя 4 + доп
-    "rgba(7,15,40,0.98)",      // осталось (тёмный сегмент)
-  ];
+        const colors = [
+          "rgba(255,46,159,0.95)",
+          "rgba(169,91,255,0.95)",
+          "rgba(39,228,255,0.95)",
+          "rgba(255,230,0,0.95)",
+          "rgba(7,15,40,0.98)",
+        ];
 
-  if (!donutChart) {
-    donutChart = new Chart(ctx, {
-      type: "doughnut",
-      data: {
-        labels,
-        datasets: [
-          {
-            data,
-            backgroundColor: colors,
-            borderColor: "#02040d",
-            borderWidth: 2,
-          },
-        ],
-      },
-      options: {
-        cutout: "65%",
-        plugins: {
-          legend: {
-            labels: {
-              color: "#f7f8ff",
-              font: { size: 10 },
+        if (!donutChart) {
+          donutChart = new Chart(ctx, {
+            type: "doughnut",
+            data: {
+              labels,
+              datasets: [
+                {
+                  data,
+                  backgroundColor: colors,
+                  borderColor: "#02040d",
+                  borderWidth: 2,
+                },
+              ],
             },
-          },
-          tooltip: {
-            callbacks: {
-              label: (ctx) => {
-                const label = ctx.label || "";
-                const value = ctx.parsed;
-                return `${label}: ${value}`;
+            options: {
+              cutout: "65%",
+              plugins: {
+                legend: {
+                  labels: {
+                    color: "#f7f8ff",
+                    font: { size: 10 },
+                  },
+                },
+                tooltip: {
+                  callbacks: {
+                    label: (ctx) => {
+                      const label = ctx.label || "";
+                      const value = ctx.parsed;
+                      return `${label}: ${value}`;
+                    },
+                  },
+                },
               },
             },
-          },
-        },
-      },
-    });
-  } else {
-    donutChart.data.labels = labels;
-    donutChart.data.datasets[0].data = data;
-    donutChart.data.datasets[0].backgroundColor = colors;
-    donutChart.update();
-  }
+          });
+        } else {
+          donutChart.data.labels = labels;
+          donutChart.data.datasets[0].data = data;
+          donutChart.data.datasets[0].backgroundColor = colors;
+          donutChart.update();
+        }
 
-  donutDoneEl.textContent = `Выполнено: ${totalDone}`;
-  donutLeftEl.textContent = `Осталось: ${left}`;
-  donutPctEl.textContent = `Финальный прогресс: ${pct}%`;
-}
+        donutDoneEl.textContent = `Выполнено: ${totalDone}`;
+        donutLeftEl.textContent = `Осталось: ${left}`;
+        donutPctEl.textContent = `Финальный прогресс: ${pct}%`;
+      }
 
-
-      /* Инициализация */
+      /* инициализация */
 
       function initFromState() {
         mottoInput.value = state.motto || "";
@@ -1707,7 +1734,6 @@
         recalcStats();
       }
 
-      // запуск
       initFromState();
       attachHandlers();
     })();

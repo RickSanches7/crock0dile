@@ -5,25 +5,33 @@
   <title>Croc Lab · Месячный трекер привычек</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Логотип Croc Lab -->
+  <!-- Чтобы на iPhone выглядело как приложение -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="apple-mobile-web-app-title" content="Croc Lab Planner" />
+  <meta name="theme-color" content="#ffffff" />
+
+  <!-- Иконка -->
   <link rel="apple-touch-icon" href="crock0dole-icon.png" />
   <link rel="icon" type="image/png" href="crock0dole-icon.png" />
 
   <style>
     :root {
-      --bg: #060a1f;
-      --bg-panel: #091233;
-      --bg-panel-soft: #0b153f;
-      --grid-border: #1f2e5a;
-      --text-main: #f7f8ff;
-      --text-muted: #9ca8e0;
+      /* СВЕТЛАЯ ТЕМА */
+      --bg-page: #ffffff;
+      --bg-panel: #ffffff;
+      --bg-panel-soft: #f5f7ff;
+      --grid-border: #d8ddff;
+
+      --text-main: #111322;
+      --text-muted: #7a80a2;
 
       --accent-pink: #ff2e9f;
-      --accent-cyan: #27e4ff;
-      --accent-purple: #a95bff;
-      --accent-green: #2dff98;
-      --accent-yellow: #ffe600;
-      --danger: #ff5f5f;
+      --accent-cyan: #27b6ff;
+      --accent-purple: #a35bff;
+      --accent-green: #12c98a;
+      --accent-yellow: #ffc400;
+      --danger: #ff4d4d;
     }
 
     * {
@@ -32,23 +40,22 @@
 
     body {
       margin: 0;
-      padding: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background:
-        radial-gradient(circle at top, #253b8b 0, #060a1f 55%, #030415 100%);
+      font-family: system-ui, -apple-system, "SF Pro Text", "Segoe UI", sans-serif;
+      background: var(--bg-page);
       color: var(--text-main);
     }
 
-    /* Заглушка для ПК */
+    /* ---- Заглушка для ПК ---- */
     .desktop-message {
       display: none;
     }
 
+    /* ---- Мобильное "приложение" ---- */
     .app-shell {
-      max-width: 1400px;
+      max-width: 480px;
       margin: 0 auto;
-      padding: 16px 16px 28px;
+      padding: 10px 10px 16px;
+      background: var(--bg-page);
     }
 
     /* Шапка */
@@ -57,31 +64,27 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      gap: 12px;
-      margin-bottom: 14px;
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
     .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
     }
 
     .brand-logo {
-      width: 44px;
-      height: 44px;
-      border-radius: 16px;
-      background:
-        radial-gradient(circle at 20% 20%, var(--accent-green), transparent 60%),
-        radial-gradient(circle at 80% 25%, var(--accent-cyan), transparent 65%),
-        radial-gradient(circle at 50% 90%, #061335, #020515 80%);
-      box-shadow:
-        0 0 18px rgba(45, 255, 152, 0.9),
-        0 0 26px rgba(39, 228, 255, 0.9);
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: #ffffff;
+      border: 1px solid #e0e4ff;
+      box-shadow: 0 0 12px rgba(39,182,255,0.3);
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden;
     }
 
     .brand-logo img {
@@ -92,14 +95,14 @@
     }
 
     .brand-text-title {
-      font-size: 19px;
+      font-size: 17px;
       font-weight: 700;
       letter-spacing: 0.18em;
       text-transform: uppercase;
     }
 
     .brand-text-sub {
-      font-size: 11px;
+      font-size: 9px;
       color: var(--text-muted);
       letter-spacing: 0.18em;
       text-transform: uppercase;
@@ -107,116 +110,101 @@
 
     .header-caption {
       text-align: right;
-      font-size: 12px;
+      font-size: 10px;
       color: var(--text-muted);
-    }
-
-    .header-caption span {
-      display: block;
+      max-width: 180px;
+      line-height: 1.3;
     }
 
     /* Общие панели */
 
     .panel {
       background: linear-gradient(145deg, var(--bg-panel-soft), var(--bg-panel));
-      border-radius: 16px;
-      border: 1px solid #27356b;
-      box-shadow:
-        0 18px 34px rgba(0, 0, 0, 0.75),
-        0 0 26px rgba(39, 228, 255, 0.18);
-      padding: 14px 14px 12px;
-      margin-bottom: 14px;
+      border-radius: 14px;
+      border: 1px solid var(--grid-border);
+      box-shadow: 0 8px 18px rgba(10,10,60,0.10);
+      padding: 9px 9px 8px;
+      margin-bottom: 10px;
     }
 
     .panel-header-row {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      gap: 10px;
-      margin-bottom: 8px;
+      gap: 8px;
+      margin-bottom: 6px;
     }
 
     .panel-title {
-      font-size: 16px;
+      font-size: 13px;
       font-weight: 700;
       letter-spacing: 0.16em;
       text-transform: uppercase;
     }
 
     .panel-subtitle {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-muted);
     }
 
-    /* Основной верхний блок: сетка + прогресс */
+    /* Верхний блок: сетка + прогресс */
 
     .top-main-layout {
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(260px, 1.2fr);
-      gap: 12px;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
     }
 
     .motto-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 8px;
-      font-size: 13px;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 6px;
+      font-size: 12px;
     }
 
     .motto-title {
-      font-size: 17px;
-      font-weight: 700;
+      font-size: 14px;
+      font-weight: 600;
     }
 
     .motto-date-box {
-      display: inline-flex;
-      align-items: center;
+      display: flex;
+      justify-content: space-between;
       gap: 6px;
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text-muted);
     }
 
     .motto-input,
     .date-input,
     .month-input {
-      background: #07112f;
-      border-radius: 999px;
-      border: 1px solid #31478d;
-      padding: 4px 10px;
-      font-size: 12px;
+      background: #f5f7ff;
+      border-radius: 10px;
+      border: 1px solid var(--grid-border);
+      padding: 4px 8px;
+      font-size: 11px;
       color: var(--text-main);
       outline: none;
-      min-width: 0;
     }
 
-    .motto-input {
-      width: 240px;
-      max-width: 60vw;
-    }
-
-    .month-input {
-      width: 210px;
-      max-width: 55vw;
-    }
+    .motto-input { width: 100%; }
+    .month-input { width: 100%; }
 
     .motto-input:focus,
     .date-input:focus,
     .month-input:focus {
       border-color: var(--accent-cyan);
-      box-shadow:
-        0 0 0 1px rgba(39, 228, 255, 0.4),
-        0 0 14px rgba(45, 255, 152, 0.6);
+      box-shadow: 0 0 0 1px rgba(39,182,255,0.5);
+      background: #ffffff;
     }
 
     .month-label-row {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 8px;
-      font-size: 12px;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 6px;
+      font-size: 11px;
       color: var(--text-muted);
     }
 
@@ -225,81 +213,55 @@
       letter-spacing: 0.16em;
     }
 
-    /* Таблица привычек за месяц */
+    /* Таблица привычек */
 
     .grid-wrapper {
       border-radius: 12px;
       overflow: auto;
       border: 1px solid var(--grid-border);
-      background: #050b25;
+      background: #f9faff;
+      max-height: 52vh;
     }
 
     table.main-grid {
       width: 100%;
-      min-width: 1060px;
+      min-width: 620px;
       border-collapse: collapse;
-      font-size: 11px;
+      font-size: 9px;
     }
 
     .main-grid th,
     .main-grid td {
       border: 1px solid var(--grid-border);
-      padding: 4px 4px;
+      padding: 3px 3px;
       text-align: center;
-      vertical-align: middle;
     }
 
     .main-grid thead th {
-      background: #081233;
+      background: #eef1ff;
       white-space: nowrap;
     }
 
     .week-band-row th {
-      font-size: 12px;
+      font-size: 9px;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
-    .week-1 {
-      color: var(--accent-pink);
-      border-bottom: 2px solid var(--accent-pink);
-    }
+    .week-1   { color: var(--accent-pink);   border-bottom: 2px solid var(--accent-pink); }
+    .week-2   { color: var(--accent-purple); border-bottom: 2px solid var(--accent-purple); }
+    .week-3   { color: var(--accent-cyan);   border-bottom: 2px solid var(--accent-cyan); }
+    .week-4   { color: var(--accent-yellow); border-bottom: 2px solid var(--accent-yellow); }
+    .week-extra { color: var(--accent-green); border-bottom: 2px solid var(--accent-green); }
 
-    .week-2 {
-      color: var(--accent-purple);
-      border-bottom: 2px solid var(--accent-purple);
-    }
-
-    .week-3 {
-      color: var(--accent-cyan);
-      border-bottom: 2px solid var(--accent-cyan);
-    }
-
-    .week-4 {
-      color: var(--accent-yellow);
-      border-bottom: 2px solid var(--accent-yellow);
-    }
-
-    .week-extra {
-      color: var(--accent-green);
-      border-bottom: 2px solid var(--accent-green);
-    }
-
-    .dow-row th {
-      font-weight: 500;
-      color: var(--text-muted);
-    }
-
-    .daynum-row th {
-      font-weight: 600;
-      color: #e1e4ff;
-    }
+    .dow-row th { font-weight: 500; color: var(--text-muted); }
+    .daynum-row th { font-weight: 600; color: #333a66; }
 
     .habit-name-cell {
       text-align: left;
-      min-width: 210px;
-      background: #081233;
+      min-width: 150px;
+      background: #eef1ff;
       position: sticky;
       left: 0;
       z-index: 1;
@@ -307,90 +269,79 @@
 
     .habit-input {
       width: 100%;
-      border-radius: 7px;
-      border: 1px solid #31478d;
-      background: #07112f;
-      padding: 3px 6px;
-      font-size: 12px;
+      border-radius: 6px;
+      border: 1px solid var(--grid-border);
+      background: #ffffff;
+      padding: 3px 5px;
+      font-size: 10px;
       color: var(--text-main);
       outline: none;
     }
 
     .habit-input:focus {
       border-color: var(--accent-cyan);
-      box-shadow:
-        0 0 0 1px rgba(39, 228, 255, 0.35),
-        0 0 10px rgba(45, 255, 152, 0.45);
+      box-shadow: 0 0 0 1px rgba(39,182,255,0.5);
     }
 
     .day-cell {
       cursor: pointer;
-      min-width: 24px;
-      height: 22px;
-      background: #050b25;
-      transition:
-        background 0.12s ease,
-        box-shadow 0.12s ease,
-        transform 0.08s ease;
+      min-width: 20px;
+      height: 18px;
+      background: #f9faff;
+      transition: background 0.1s ease, box-shadow 0.1s ease, transform 0.05s ease;
     }
 
     .day-cell:hover {
-      background: #13235a;
-      transform: translateY(-1px);
+      background: #e4e7ff;
     }
 
     .day-cell.done {
-      background:
-        radial-gradient(circle at center,
-          var(--accent-green),
-          var(--accent-cyan) 60%);
-      box-shadow:
-        0 0 10px rgba(45, 255, 152, 0.9),
-        0 0 18px rgba(39, 228, 255, 0.9);
+      background: radial-gradient(circle at center,
+                    var(--accent-green),
+                    var(--accent-cyan) 60%);
+      box-shadow: 0 0 6px rgba(39,182,255,0.8);
+      transform: translateY(-1px);
     }
 
-    /* Боковая панель прогресса */
+    /* Боковой прогресс */
 
     .side-progress {
-      background: #081233;
+      background: #ffffff;
       border-radius: 12px;
-      border: 1px solid #27356b;
-      padding: 10px 10px 8px;
+      border: 1px solid var(--grid-border);
+      padding: 8px;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 6px;
     }
 
     .side-title {
-      font-size: 13px;
+      font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
-      margin-bottom: 4px;
     }
 
     .side-main-number {
-      font-size: 22px;
+      font-size: 18px;
       font-weight: 700;
-      margin-bottom: 4px;
     }
 
     .side-sub {
-      font-size: 11px;
+      font-size: 10px;
       color: var(--text-muted);
-      margin-bottom: 6px;
     }
 
     .mini-bar-row {
       display: flex;
       align-items: center;
-      gap: 6px;
-      font-size: 11px;
-      margin-bottom: 4px;
+      gap: 4px;
+      font-size: 9px;
+      margin-bottom: 3px;
     }
 
     .mini-bar-label {
-      width: 32px;
+      width: 26px;
       color: var(--text-muted);
     }
 
@@ -398,7 +349,7 @@
       flex: 1;
       height: 6px;
       border-radius: 999px;
-      background: #050b25;
+      background: #f3f5ff;
       overflow: hidden;
     }
 
@@ -407,33 +358,32 @@
       height: 100%;
       border-radius: inherit;
       background: linear-gradient(90deg,
-        rgba(45, 255, 152, 0.9),
-        rgba(39, 228, 255, 0.9));
-      box-shadow:
-        0 0 10px rgba(45, 255, 152, 0.9),
-        0 0 16px rgba(39, 228, 255, 0.9);
+        rgba(255,46,159,0.9),
+        rgba(39,182,255,0.9),
+        rgba(18,201,138,0.9));
+      box-shadow: 0 0 6px rgba(39,182,255,0.7);
       transition: width 0.18s ease-out;
     }
 
     .mini-bar-pct {
-      width: 40px;
-      text-align: right;
+      width: 80px;
+      text-align: left;
     }
 
-    /* Блок еженедельного обзора */
+    /* Еженедельный обзор */
 
     .weekly-layout {
       display: grid;
-      grid-template-columns: minmax(0, 3fr) minmax(260px, 1.2fr);
-      gap: 12px;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 8px;
     }
 
     .week-legend {
       display: flex;
-      gap: 8px;
-      font-size: 11px;
-      margin-bottom: 4px;
       flex-wrap: wrap;
+      gap: 6px;
+      font-size: 9px;
+      margin-bottom: 4px;
     }
 
     .legend-item {
@@ -443,8 +393,8 @@
     }
 
     .legend-dot {
-      width: 10px;
-      height: 10px;
+      width: 8px;
+      height: 8px;
       border-radius: 999px;
     }
 
@@ -455,22 +405,22 @@
 
     .chart-container {
       width: 100%;
-      height: 220px;
+      height: 180px;
     }
 
     .weekly-summary-list {
       list-style: none;
-      margin: 8px 0 0;
+      margin: 6px 0 0;
       padding: 0;
-      font-size: 11px;
+      font-size: 9px;
       color: var(--text-muted);
     }
 
     .weekly-summary-list li {
       display: flex;
       justify-content: space-between;
-      padding: 3px 0;
-      border-bottom: 1px dashed rgba(60, 90, 140, 0.9);
+      padding: 2px 0;
+      border-bottom: 1px dashed #d0d4ff;
     }
 
     .weekly-summary-list span.value {
@@ -480,31 +430,31 @@
 
     .final-bars {
       display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 6px;
-      margin-top: 8px;
-      font-size: 10px;
+      margin-top: 6px;
+      font-size: 9px;
     }
 
     .final-bar-item {
-      background: #050b25;
+      background: #f5f7ff;
       border-radius: 10px;
-      padding: 4px 5px 6px;
-      border: 1px solid #27356b;
+      border: 1px solid var(--grid-border);
+      padding: 4px 4px 5px;
     }
 
     .final-bar-label {
-      margin-bottom: 4px;
+      margin-bottom: 3px;
       text-transform: uppercase;
       letter-spacing: 0.14em;
       color: var(--text-muted);
     }
 
     .final-bar-strip {
-      height: 10px;
+      height: 8px;
       border-radius: 999px;
+      background: #e1e4ff;
       overflow: hidden;
-      background: #02040d;
     }
 
     .final-bar-fill {
@@ -512,30 +462,27 @@
       width: 0%;
       border-radius: inherit;
       background: linear-gradient(90deg,
-        rgba(255, 46, 159, 0.9),
-        rgba(39, 228, 255, 0.9),
-        rgba(169, 91, 255, 0.9));
-      box-shadow:
-        0 0 12px rgba(255, 46, 159, 0.9),
-        0 0 18px rgba(39, 228, 255, 0.9);
+        rgba(255,46,159,0.9),
+        rgba(39,182,255,0.9));
+      box-shadow: 0 0 7px rgba(39,182,255,0.8);
       transition: width 0.2s ease-out;
     }
 
     .donut-box {
-      background: #081233;
+      background: #ffffff;
       border-radius: 12px;
-      border: 1px solid #27356b;
-      padding: 10px 10px 8px;
+      border: 1px solid var(--grid-border);
+      padding: 8px;
     }
 
     .donut-title {
-      font-size: 12px;
+      font-size: 10px;
       font-weight: 600;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .donut-numbers {
-      font-size: 11px;
+      font-size: 9px;
       color: var(--text-muted);
       margin-top: 6px;
     }
@@ -544,44 +491,45 @@
       display: block;
     }
 
-    /* Топ-3 задачи на день */
+    /* TOP-3 задачи */
 
     .top3-hint {
-      font-size: 11px;
+      font-size: 9px;
       color: var(--text-muted);
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .top3-wrapper {
       border-radius: 12px;
       overflow: auto;
       border: 1px solid var(--grid-border);
-      background: #050b25;
+      background: #f9faff;
+      max-height: 50vh;
     }
 
     table.top3-grid {
       width: 100%;
-      min-width: 840px;
+      min-width: 620px;
       border-collapse: collapse;
-      font-size: 11px;
+      font-size: 9px;
     }
 
     .top3-grid th,
     .top3-grid td {
       border: 1px solid var(--grid-border);
-      padding: 4px 4px;
+      padding: 3px 3px;
     }
 
     .top3-grid th {
-      background: #081233;
+      background: #eef1ff;
       text-transform: uppercase;
       letter-spacing: 0.14em;
       color: var(--text-muted);
     }
 
     .top3-grid td.day-label {
-      width: 80px;
-      background: #081233;
+      width: 70px;
+      background: #eef1ff;
       position: sticky;
       left: 0;
       z-index: 1;
@@ -596,21 +544,18 @@
 
     .top3-input {
       flex: 1;
-      min-width: 0;
-      border-radius: 7px;
-      border: 1px solid #31478d;
-      background: #07112f;
-      padding: 3px 6px;
-      font-size: 11px;
+      border-radius: 6px;
+      border: 1px solid var(--grid-border);
+      background: #ffffff;
+      padding: 3px 5px;
+      font-size: 9px;
       color: var(--text-main);
       outline: none;
     }
 
     .top3-input:focus {
       border-color: var(--accent-cyan);
-      box-shadow:
-        0 0 0 1px rgba(39, 228, 255, 0.35),
-        0 0 10px rgba(45, 255, 152, 0.45);
+      box-shadow: 0 0 0 1px rgba(39,182,255,0.5);
     }
 
     .top3-checkbox {
@@ -623,37 +568,31 @@
     /* Кнопки */
 
     .controls-row {
-      margin-top: 8px;
+      margin-top: 6px;
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       flex-wrap: wrap;
-      gap: 8px;
-      font-size: 11px;
+      gap: 6px;
+      font-size: 10px;
     }
 
     button {
-      background: #081233;
+      background: #ffffff;
       border-radius: 999px;
-      border: 1px solid #31478d;
+      border: 1px solid var(--grid-border);
       color: var(--text-main);
-      padding: 5px 12px;
-      font-size: 11px;
+      padding: 4px 10px;
+      font-size: 10px;
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 5px;
-      transition:
-        background 0.15s ease,
-        border-color 0.15s ease,
-        transform 0.08s ease,
-        box-shadow 0.15s ease;
+      gap: 4px;
+      transition: background 0.15s ease, border-color 0.15s ease, transform 0.08s ease, box-shadow 0.15s ease;
     }
 
     button.neon {
       border-color: var(--accent-cyan);
-      box-shadow:
-        0 0 10px rgba(39, 228, 255, 0.9),
-        0 0 18px rgba(45, 255, 152, 0.75);
+      box-shadow: 0 0 6px rgba(39,182,255,0.6);
     }
 
     button.danger {
@@ -663,7 +602,7 @@
 
     button:hover {
       transform: translateY(-1px);
-      background: #0d1a3e;
+      background: #f5f7ff;
     }
 
     button:active {
@@ -675,224 +614,13 @@
     /* Футер */
 
     .footer {
-      margin-top: 12px;
+      margin-top: 6px;
       text-align: center;
-      font-size: 10px;
+      font-size: 9px;
       color: var(--text-muted);
-      opacity: 0.7;
     }
 
-    /* ===== мобильная уплотнёнка ===== */
-    @media (max-width: 768px) {
-      .app-shell {
-        padding: 4px 6px 12px;
-      }
-
-      .header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-        margin-bottom: 8px;
-      }
-
-      .header-caption {
-        text-align: left;
-        font-size: 10px;
-        max-width: 260px;
-        line-height: 1.3;
-      }
-
-      .panel {
-        padding: 8px 8px 8px;
-        border-radius: 12px;
-        margin-bottom: 8px;
-      }
-
-      .panel-header-row {
-        margin-bottom: 4px;
-      }
-
-      .panel-title {
-        font-size: 13px;
-      }
-
-      .panel-subtitle {
-        font-size: 9px;
-      }
-
-      .motto-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-        margin-bottom: 6px;
-      }
-
-      .motto-input,
-      .date-input,
-      .month-input {
-        width: 100%;
-        max-width: 100%;
-        font-size: 11px;
-        padding: 4px 8px;
-      }
-
-      .month-label-row {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-        font-size: 10px;
-        margin-bottom: 6px;
-      }
-
-      .grid-wrapper {
-        max-height: 52vh;
-        overflow-x: auto;
-        overflow-y: auto;
-      }
-
-      table.main-grid {
-        font-size: 9px;
-      }
-
-      .week-band-row th {
-        font-size: 9px;
-      }
-
-      .habit-name-cell {
-        min-width: 150px;
-        padding: 3px 4px;
-      }
-
-      .habit-input {
-        font-size: 10px;
-        padding: 3px 6px;
-      }
-
-      .day-cell {
-        min-width: 22px;
-        height: 20px;
-      }
-
-      .side-progress {
-        padding: 8px;
-      }
-
-      .side-title {
-        font-size: 11px;
-      }
-
-      .side-main-number {
-        font-size: 18px;
-      }
-
-      .mini-bar-row {
-        font-size: 9px;
-        gap: 4px;
-      }
-
-      .mini-bar-label {
-        width: 26px;
-      }
-
-      .mini-bar-pct {
-        width: 70px;
-        text-align: left;
-      }
-
-      .controls-row {
-        margin-top: 6px;
-        justify-content: space-between;
-      }
-
-      button {
-        padding: 4px 10px;
-        font-size: 10px;
-      }
-
-      .weekly-layout,
-      .top-main-layout {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 8px;
-      }
-
-      .chart-container {
-        height: 190px;
-      }
-
-      .week-legend {
-        font-size: 10px;
-      }
-
-      .weekly-summary-list {
-        font-size: 10px;
-      }
-
-      .final-bars {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 4px;
-      }
-
-      .donut-box {
-        padding: 8px;
-      }
-
-      .donut-title {
-        font-size: 11px;
-      }
-
-      .donut-numbers {
-        font-size: 10px;
-      }
-
-      .top3-wrapper {
-        max-height: 50vh;
-        overflow-x: auto;
-        overflow-y: auto;
-      }
-
-      table.top3-grid {
-        min-width: 720px;
-        font-size: 10px;
-      }
-
-      .top3-input {
-        font-size: 10px;
-        padding: 3px 5px;
-      }
-
-      .top3-checkbox {
-        width: 14px;
-        height: 14px;
-      }
-
-      .footer {
-        font-size: 9px;
-        margin-top: 8px;
-      }
-
-      .brand-logo {
-        width: 40px;
-        height: 40px;
-      }
-    }
-
-    @media (max-width: 540px) {
-      .brand-logo {
-        width: 34px;
-        height: 34px;
-        border-radius: 12px;
-      }
-
-      .brand-text-title {
-        font-size: 15px;
-      }
-
-      .brand-text-sub {
-        font-size: 9px;
-      }
-    }
-
-    /* ===== только мобильная версия ===== */
+    /* Только мобильная версия: на ПК выдаём сообщение */
 
     @media (min-width: 769px) {
       .desktop-message {
@@ -904,27 +632,15 @@
         text-align: center;
         font-size: 16px;
         color: var(--text-main);
-        background:
-          radial-gradient(circle at top, #253b8b 0, #060a1f 55%, #030415 100%);
+        background: #ffffff;
       }
-
-      .desktop-message span {
-        max-width: 480px;
-      }
-
-      .app-shell {
-        display: none;
-      }
+      .desktop-message span { max-width: 480px; }
+      .app-shell { display: none; }
     }
 
     @media (max-width: 768px) {
-      .desktop-message {
-        display: none;
-      }
-
-      .app-shell {
-        display: block;
-      }
+      .desktop-message { display: none; }
+      .app-shell { display: block; }
     }
   </style>
 </head>
@@ -933,12 +649,12 @@
   <div class="desktop-message">
     <span>
       Croc Lab · месячный трекер привычек.<br /><br />
-      Этот трекер рассчитан под мобильный экран.
-      Открой сайт с телефона, чтобы пользоваться планером.
+      Этот планер рассчитан под мобильный экран.
+      Открой сайт с телефона, чтобы пользоваться.
     </span>
   </div>
 
-  <!-- Мобильный планер -->
+  <!-- Мобильное приложение -->
   <div class="app-shell">
     <header class="header">
       <div class="brand">
@@ -951,17 +667,17 @@
         </div>
       </div>
       <div class="header-caption">
-        <span>pov: ты превратил жизнь в игру</span>
-        <span>месячный неоновый трекер привычек</span>
+        <div>pov: ты превратил жизнь в игру</div>
+        <div>месячный трекер привычек</div>
       </div>
     </header>
 
-    <!-- Верхний блок: решётка месяца + прогресс -->
+    <!-- Месячная решётка -->
     <section class="panel">
       <div class="panel-header-row">
-        <div class="panel-title">Месячная решётка привычек</div>
+        <div class="panel-title">Месячная решётка</div>
         <div class="panel-subtitle">
-          Отмечай выполненные привычки каждый день — графики считаются автоматически
+          Отмечай выполненные привычки, прогресс считается автоматически.
         </div>
       </div>
 
@@ -969,26 +685,22 @@
         <div>
           <div class="motto-row">
             <div class="motto-title">
-              <input id="mottoInput" class="motto-input" type="text"
-                     placeholder="Учись постоянно."
-              />
+              <input id="mottoInput" class="motto-input" type="text" placeholder="Учись постоянно.">
             </div>
             <div class="motto-date-box">
               <span>Дата начала:</span>
-              <input id="dateInput" class="date-input" type="date" />
+              <input id="dateInput" class="date-input" type="date">
             </div>
           </div>
 
           <div class="month-label-row">
             <span>Месяц</span>
-            <input id="monthInput" class="month-input" type="text"
-                   placeholder="Например: Декабрь 2025 г." />
+            <input id="monthInput" class="month-input" type="text" placeholder="Например: Декабрь 2025 г.">
           </div>
 
           <div class="grid-wrapper">
             <table class="main-grid" id="mainGrid">
               <thead>
-                <!-- Полоса недель -->
                 <tr class="week-band-row">
                   <th class="habit-name-cell"></th>
                   <th class="week-1" colspan="7">НЕДЕЛЯ 1</th>
@@ -997,24 +709,16 @@
                   <th class="week-4" colspan="7">НЕДЕЛЯ 4</th>
                   <th class="week-extra" colspan="3">ДОП.</th>
                 </tr>
-                <!-- Дни недели -->
                 <tr class="dow-row">
                   <th class="habit-name-cell">Привычка / задача</th>
-                  <!-- 1–7 -->
                   <th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th>
-                  <!-- 8–14 -->
                   <th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th>
-                  <!-- 15–21 -->
                   <th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th>
-                  <!-- 22–28 -->
                   <th>Пн</th><th>Вт</th><th>Ср</th><th>Чт</th><th>Пт</th><th>Сб</th><th>Вс</th>
-                  <!-- 29–31 -->
                   <th>Пн</th><th>Вт</th><th>Ср</th>
                 </tr>
-                <!-- Номера дней -->
                 <tr class="daynum-row">
                   <th class="habit-name-cell"></th>
-                  <!-- 1–31 -->
                   <th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th>
                   <th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th><th>14</th>
                   <th>15</th><th>16</th><th>17</th><th>18</th><th>19</th><th>20</th><th>21</th>
@@ -1033,14 +737,12 @@
           </div>
         </div>
 
-        <!-- Боковая панель прогресса -->
         <aside class="side-progress">
           <div>
             <div class="side-title">ПРОГРЕСС ЗА МЕСЯЦ</div>
             <div class="side-main-number" id="monthRatio">0 / 0</div>
             <div class="side-sub" id="monthPctText">0% от запланированных привычек</div>
           </div>
-
           <div id="perHabitBars"></div>
         </aside>
       </div>
@@ -1050,57 +752,37 @@
     <section class="panel">
       <div class="panel-header-row">
         <div class="panel-title">Еженедельный обзор</div>
-        <div class="panel-subtitle">
-          Считает прогресс по 4 неделям месяца + общее распределение задач
-        </div>
+        <div class="panel-subtitle">Прогресс по 4 неделям месяца + распределение задач.</div>
       </div>
 
       <div class="weekly-layout">
         <div>
           <div class="week-legend">
-            <div class="legend-item">
-              <span class="legend-dot w1"></span><span>Неделя 1</span>
-            </div>
-            <div class="legend-item">
-              <span class="legend-dot w2"></span><span>Неделя 2</span>
-            </div>
-            <div class="legend-item">
-              <span class="legend-dot w3"></span><span>Неделя 3</span>
-            </div>
-            <div class="legend-item">
-              <span class="legend-dot w4"></span><span>Неделя 4 + доп.</span>
-            </div>
+            <div class="legend-item"><span class="legend-dot w1"></span><span>Неделя 1</span></div>
+            <div class="legend-item"><span class="legend-dot w2"></span><span>Неделя 2</span></div>
+            <div class="legend-item"><span class="legend-dot w3"></span><span>Неделя 3</span></div>
+            <div class="legend-item"><span class="legend-dot w4"></span><span>Неделя 4 + доп.</span></div>
           </div>
           <div class="chart-container">
             <canvas id="weekChart"></canvas>
           </div>
-
           <ul class="weekly-summary-list" id="weeklyList"></ul>
-
           <div class="final-bars">
             <div class="final-bar-item">
               <div class="final-bar-label">НЕДЕЛЯ 1</div>
-              <div class="final-bar-strip">
-                <div class="final-bar-fill" id="barW1"></div>
-              </div>
+              <div class="final-bar-strip"><div class="final-bar-fill" id="barW1"></div></div>
             </div>
             <div class="final-bar-item">
               <div class="final-bar-label">НЕДЕЛЯ 2</div>
-              <div class="final-bar-strip">
-                <div class="final-bar-fill" id="barW2"></div>
-              </div>
+              <div class="final-bar-strip"><div class="final-bar-fill" id="barW2"></div></div>
             </div>
             <div class="final-bar-item">
               <div class="final-bar-label">НЕДЕЛЯ 3</div>
-              <div class="final-bar-strip">
-                <div class="final-bar-fill" id="barW3"></div>
-              </div>
+              <div class="final-bar-strip"><div class="final-bar-fill" id="barW3"></div></div>
             </div>
             <div class="final-bar-item">
               <div class="final-bar-label">НЕДЕЛЯ 4</div>
-              <div class="final-bar-strip">
-                <div class="final-bar-fill" id="barW4"></div>
-              </div>
+              <div class="final-bar-strip"><div class="final-bar-fill" id="barW4"></div></div>
             </div>
           </div>
         </div>
@@ -1119,19 +801,15 @@
       </div>
     </section>
 
-    <!-- Топ-3 задачи на день -->
+    <!-- TOP-3 задачи -->
     <section class="panel">
       <div class="panel-header-row">
-        <div class="panel-title">ТОП-3 задачи на каждый день</div>
-        <div class="panel-subtitle">
-          До трёх ключевых задач в сутки. Галочка = задача выполнена.
-        </div>
+        <div class="panel-title">ТОП-3 задачи</div>
+        <div class="panel-subtitle">Три ключевых задачи на каждый день месяца.</div>
       </div>
-
       <div class="top3-hint">
-        Пиши конкретные действия. Эти данные тоже сохраняются локально в этом браузере.
+        Пиши конкретные действия. Отмечай галочкой, когда задача выполнена.
       </div>
-
       <div class="top3-wrapper">
         <table class="top3-grid" id="top3Grid">
           <thead>
@@ -1148,45 +826,37 @@
     </section>
 
     <div class="footer">
-      Croc Lab · neon monthly planner · данные хранятся в localStorage этого браузера
+      Croc Lab · данные хранятся локально в этом браузере
     </div>
   </div>
 
-  <!-- Chart.js для графиков -->
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
   <script>
     (function () {
-      const STORAGE_KEY = "croc_lab_neon_month_v1";
-
+      const STORAGE_KEY = "croc_lab_neon_month_v3";
       const HABIT_ROWS = 8;
       const TOTAL_DAYS = 31;
       const WEEKS = 4;
       const DAYS_PER_WEEK = 7;
 
-      // DOM
       const mottoInput = document.getElementById("mottoInput");
       const dateInput = document.getElementById("dateInput");
       const monthInput = document.getElementById("monthInput");
-
       const mainGridBody = document.querySelector("#mainGrid tbody");
       const perHabitBarsEl = document.getElementById("perHabitBars");
-
       const monthRatioEl = document.getElementById("monthRatio");
       const monthPctTextEl = document.getElementById("monthPctText");
-
       const weeklyListEl = document.getElementById("weeklyList");
       const barW1 = document.getElementById("barW1");
       const barW2 = document.getElementById("barW2");
       const barW3 = document.getElementById("barW3");
       const barW4 = document.getElementById("barW4");
-
       const donutDoneEl = document.getElementById("donutDone");
       const donutLeftEl = document.getElementById("donutLeft");
       const donutPctEl = document.getElementById("donutPct");
-
       const top3GridBody = document.querySelector("#top3Grid tbody");
-
       const resetChecksBtn = document.getElementById("resetChecks");
       const resetAllBtn = document.getElementById("resetAll");
       const fillExampleBtn = document.getElementById("fillExample");
@@ -1202,14 +872,10 @@
           year: "numeric",
         });
 
-        const habits = Array.from({ length: HABIT_ROWS }, () => ({
-          text: "",
-        }));
-
+        const habits = Array.from({ length: HABIT_ROWS }, () => ({ text: "" }));
         const checks = Array.from({ length: HABIT_ROWS }, () =>
           Array(TOTAL_DAYS).fill(0)
         );
-
         const top3Texts = Array.from({ length: TOTAL_DAYS }, () =>
           Array(3).fill("")
         );
@@ -1282,12 +948,10 @@
       function saveState() {
         try {
           localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-        } catch (e) {
-          console.warn("Failed to save planner state", e);
-        }
+        } catch {}
       }
 
-      /* основная сетка */
+      /* --- Построение таблиц --- */
 
       function buildMainGrid() {
         mainGridBody.innerHTML = "";
@@ -1312,7 +976,6 @@
             td.className = "day-cell";
             td.dataset.row = String(row);
             td.dataset.day = String(d);
-
             if (state.checks[row][d]) td.classList.add("done");
             tr.appendChild(td);
           }
@@ -1332,10 +995,9 @@
         activeRows.forEach((row) => {
           let done = 0;
           for (let d = 0; d < TOTAL_DAYS; d++) {
-            if (state.checks[row][d]) done += 1;
+            if (state.checks[row][d]) done++;
           }
-          const pct =
-            TOTAL_DAYS > 0 ? Math.round((done / TOTAL_DAYS) * 100) : 0;
+          const pct = TOTAL_DAYS ? Math.round((done / TOTAL_DAYS) * 100) : 0;
 
           const line = document.createElement("div");
           line.className = "mini-bar-row";
@@ -1350,17 +1012,15 @@
           const fill = document.createElement("div");
           fill.className = "mini-bar-fill";
           fill.style.width = pct + "%";
-
           track.appendChild(fill);
 
           const text = document.createElement("div");
           text.className = "mini-bar-pct";
-          text.textContent = state.habits[row].text.slice(0, 14) || "—";
+          text.textContent = state.habits[row].text.slice(0, 16) || "—";
 
           line.appendChild(label);
           line.appendChild(track);
           line.appendChild(text);
-
           perHabitBarsEl.appendChild(line);
         });
 
@@ -1372,13 +1032,10 @@
         }
       }
 
-      /* Топ-3 задачи */
-
       function buildTop3Grid() {
         top3GridBody.innerHTML = "";
         for (let day = 0; day < TOTAL_DAYS; day++) {
           const tr = document.createElement("tr");
-
           const dayTd = document.createElement("td");
           dayTd.className = "day-label";
           dayTd.textContent = `${day + 1} день`;
@@ -1414,7 +1071,7 @@
         }
       }
 
-      /* события */
+      /* --- Обработчики --- */
 
       function attachHandlers() {
         mainGridBody.addEventListener("click", (e) => {
@@ -1514,7 +1171,7 @@
         });
       }
 
-      /* подсчёт статистики */
+      /* --- Статистика / графики --- */
 
       function recalcStats() {
         const activeRows = [];
@@ -1524,7 +1181,6 @@
 
         let totalDone = 0;
         let totalPossible = 0;
-
         const weekStats = Array.from({ length: WEEKS }, () => ({
           done: 0,
           possible: 0,
@@ -1532,24 +1188,20 @@
 
         activeRows.forEach((row) => {
           for (let d = 0; d < TOTAL_DAYS; d++) {
-            const isExtra = d >= 28; // 29–31
-            const weekIndex = isExtra
-              ? 3
-              : Math.floor(d / DAYS_PER_WEEK); // 0..3
-            weekStats[weekIndex].possible += 1;
-            totalPossible += 1;
+            const weekIndex = d >= 28 ? 3 : Math.floor(d / DAYS_PER_WEEK);
+            weekStats[weekIndex].possible++;
+            totalPossible++;
             if (state.checks[row][d]) {
-              weekStats[weekIndex].done += 1;
-              totalDone += 1;
+              weekStats[weekIndex].done++;
+              totalDone++;
             }
           }
         });
 
         const left = Math.max(totalPossible - totalDone, 0);
-        const pct =
-          totalPossible > 0
-            ? Math.round((totalDone / totalPossible) * 100)
-            : 0;
+        const pct = totalPossible
+          ? Math.round((totalDone / totalPossible) * 100)
+          : 0;
 
         monthRatioEl.textContent = `${totalDone} / ${totalPossible}`;
         monthPctTextEl.textContent = `${pct}% от запланированных привычек`;
@@ -1562,10 +1214,9 @@
           label.textContent = `Неделя ${idx + 1}`;
           const val = document.createElement("span");
           val.className = "value";
-          const weekPct =
-            w.possible > 0
-              ? Math.round((w.done / w.possible) * 100)
-              : 0;
+          const weekPct = w.possible
+            ? Math.round((w.done / w.possible) * 100)
+            : 0;
           val.textContent = w.possible
             ? `${w.done} / ${w.possible} · ${weekPct}%`
             : "-";
@@ -1588,10 +1239,10 @@
 
       function neonColors(count) {
         const base = [
-          "rgba(255,46,159,0.95)",
-          "rgba(169,91,255,0.95)",
-          "rgba(39,228,255,0.95)",
-          "rgba(255,230,0,0.95)",
+          "rgba(255,46,159,0.9)",
+          "rgba(163,91,255,0.9)",
+          "rgba(39,182,255,0.9)",
+          "rgba(255,196,0,0.9)",
         ];
         const res = [];
         for (let i = 0; i < count; i++) res.push(base[i % base.length]);
@@ -1623,8 +1274,8 @@
               plugins: {
                 legend: {
                   labels: {
-                    color: "#f7f8ff",
-                    font: { size: 10 },
+                    color: "#111322",
+                    font: { size: 9 },
                   },
                 },
                 tooltip: {
@@ -1635,18 +1286,18 @@
               },
               scales: {
                 x: {
-                  ticks: { color: "#f7f8ff", font: { size: 10 } },
+                  ticks: { color: "#111322", font: { size: 9 } },
                   grid: { display: false },
                 },
                 y: {
                   beginAtZero: true,
                   max: 100,
                   ticks: {
-                    color: "#9ca8e0",
-                    font: { size: 10 },
+                    color: "#7a80a2",
+                    font: { size: 9 },
                     callback: (v) => v + "%",
                   },
-                  grid: { color: "rgba(55, 86, 145, 0.6)" },
+                  grid: { color: "rgba(190,196,240,0.9)" },
                 },
               },
             },
@@ -1663,15 +1314,21 @@
         const ctx = document.getElementById("donutChart").getContext("2d");
 
         const weekDone = weekStats.map((w) => w.done);
-        const labels = ["Неделя 1", "Неделя 2", "Неделя 3", "Неделя 4", "Осталось"];
+        const labels = [
+          "Неделя 1",
+          "Неделя 2",
+          "Неделя 3",
+          "Неделя 4",
+          "Осталось",
+        ];
         const data = [...weekDone, Math.max(left, 0)];
 
         const colors = [
-          "rgba(255,46,159,0.95)",
-          "rgba(169,91,255,0.95)",
-          "rgba(39,228,255,0.95)",
-          "rgba(255,230,0,0.95)",
-          "rgba(7,15,40,0.98)",
+          "rgba(255,46,159,0.9)",
+          "rgba(163,91,255,0.9)",
+          "rgba(39,182,255,0.9)",
+          "rgba(255,196,0,0.9)",
+          "rgba(220,224,255,0.9)",
         ];
 
         if (!donutChart) {
@@ -1683,7 +1340,7 @@
                 {
                   data,
                   backgroundColor: colors,
-                  borderColor: "#02040d",
+                  borderColor: "#ffffff",
                   borderWidth: 2,
                 },
               ],
@@ -1693,17 +1350,13 @@
               plugins: {
                 legend: {
                   labels: {
-                    color: "#f7f8ff",
-                    font: { size: 10 },
+                    color: "#111322",
+                    font: { size: 9 },
                   },
                 },
                 tooltip: {
                   callbacks: {
-                    label: (ctx) => {
-                      const label = ctx.label || "";
-                      const value = ctx.parsed;
-                      return `${label}: ${value}`;
-                    },
+                    label: (ctx) => `${ctx.label}: ${ctx.parsed}`,
                   },
                 },
               },
@@ -1721,13 +1374,11 @@
         donutPctEl.textContent = `Финальный прогресс: ${pct}%`;
       }
 
-      /* инициализация */
-
       function initFromState() {
+        state = loadState();
         mottoInput.value = state.motto || "";
         dateInput.value = state.startDate || "";
         monthInput.value = state.monthLabel || "";
-
         buildMainGrid();
         buildTop3Grid();
         buildPerHabitBars();
